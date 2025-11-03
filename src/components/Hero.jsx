@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Shield, Star, User } from 'lucide-react';
 import Spline from '@splinetool/react-spline';
 
 export default function Hero() {
@@ -51,7 +51,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Spline 3D animation - AI voice agent aura */}
+        {/* Spline 3D animation - Interactive rotating globe */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -59,14 +59,67 @@ export default function Hero() {
           className="mt-16"
         >
           <div className="relative mx-auto w-full max-w-5xl rounded-3xl border border-slate-200/70 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/40 backdrop-blur-md shadow-xl overflow-hidden">
-            {/* Glow ring overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,theme(colors.indigo.500/8),transparent_55%)]" aria-hidden />
-            <div className="h-[360px] sm:h-[440px] md:h-[520px]">
+            {/* Soft inner glow */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,theme(colors.indigo.500/10),transparent_55%)]" aria-hidden />
+            <div className="h-[380px] sm:h-[480px] md:h-[560px]">
               <Spline
-                scene="https://prod.spline.design/4cHQr84zOGAHOehh/scene.splinecode"
+                scene="https://prod.spline.design/M2rj0DQ6tP7dSzSz/scene.splinecode"
                 style={{ width: '100%', height: '100%' }}
               />
             </div>
+
+            {/* Orbiting network badges to indicate lawyers across the country */}
+            <motion.div
+              className="pointer-events-none absolute inset-0 flex items-center justify-center"
+              aria-hidden
+              initial={false}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 28, ease: 'linear' }}
+            >
+              <div className="relative h-[85%] w-[85%]">
+                {/* top node */}
+                <motion.div
+                  className="absolute left-1/2 -translate-x-1/2 -top-2"
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <Node label="Delhi NCR" icon={<User className="h-3.5 w-3.5" />} />
+                </motion.div>
+                {/* right node */}
+                <motion.div
+                  className="absolute top-1/2 -translate-y-1/2 -right-2"
+                  initial={{ opacity: 0, x: 6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                >
+                  <Node label="Mumbai" icon={<Shield className="h-3.5 w-3.5" />} />
+                </motion.div>
+                {/* bottom-left node */}
+                <motion.div
+                  className="absolute -bottom-2 left-1/4"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.6 }}
+                >
+                  <Node label="Bengaluru" icon={<Star className="h-3.5 w-3.5" />} />
+                </motion.div>
+                {/* top-left small dot */}
+                <motion.span
+                  className="absolute top-6 left-6 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-indigo-500 shadow-[0_0_20px_rgba(139,92,246,0.6)]"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 1, type: 'spring', stiffness: 220, damping: 14 }}
+                />
+                {/* bottom-right small dot */}
+                <motion.span
+                  className="absolute bottom-8 right-8 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-500 shadow-[0_0_18px_rgba(99,102,241,0.55)]"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 1.1, type: 'spring', stiffness: 220, damping: 14 }}
+                />
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
@@ -89,5 +142,21 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function Node({ label, icon }) {
+  return (
+    <motion.div
+      className="flex items-center gap-2 rounded-full bg-white/80 dark:bg-slate-900/70 backdrop-blur px-3 py-1.5 border border-slate-200/70 dark:border-slate-800/70 shadow-md"
+      initial={{ y: -4, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 text-white shadow">
+        {icon}
+      </span>
+      <span className="text-xs font-medium text-slate-700 dark:text-slate-200">{label}</span>
+    </motion.div>
   );
 }
