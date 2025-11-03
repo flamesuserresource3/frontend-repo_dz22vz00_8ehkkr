@@ -1,16 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
 
 export default function Hero() {
   return (
     <section id="hero" className="relative overflow-hidden">
+      {/* Decorative background glows (non-interactive) */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-gradient-to-tr from-indigo-400/40 to-fuchsia-400/40 blur-3xl" />
         <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-tr from-cyan-400/30 to-indigo-400/30 blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-28">
+        {/* Heading & CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -33,21 +36,46 @@ export default function Hero() {
               whileTap={{ scale: 0.98 }}
               href="#get-started"
               className="relative inline-flex items-center justify-center rounded-2xl px-6 py-3 text-white font-semibold bg-gradient-to-r from-indigo-600 to-fuchsia-600 shadow-lg shadow-indigo-600/30"
+              aria-label="Get started with CourtEase"
             >
               <span className="absolute -inset-px rounded-2xl bg-gradient-to-r from-indigo-400/40 to-fuchsia-400/40 blur-sm" aria-hidden />
               <span className="relative">Get Started</span>
             </motion.a>
-            <a href="#how-it-works" className="rounded-xl border border-slate-200 dark:border-slate-700 px-6 py-3 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+            <a
+              href="#how-it-works"
+              className="rounded-xl border border-slate-200 dark:border-slate-700 px-6 py-3 font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+              aria-label="Learn how CourtEase works"
+            >
               How it works
             </a>
           </div>
         </motion.div>
 
+        {/* Spline 3D animation - AI voice agent aura */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4"
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mt-16"
+        >
+          <div className="relative mx-auto w-full max-w-5xl rounded-3xl border border-slate-200/70 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/40 backdrop-blur-md shadow-xl overflow-hidden">
+            {/* Glow ring overlay */}
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,theme(colors.indigo.500/8),transparent_55%)]" aria-hidden />
+            <div className="h-[360px] sm:h-[440px] md:h-[520px]">
+              <Spline
+                scene="https://prod.spline.design/4cHQr84zOGAHOehh/scene.splinecode"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Quick feature pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {[
             'Online settlements made seamless',
